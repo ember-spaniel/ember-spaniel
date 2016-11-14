@@ -64,7 +64,7 @@ export default Ember.Component.extend({
 
 ## Installation
 
-* `git clone <repository-url>` this repository
+* `git clone https://github.com/asakusuma/ember-spaniel.git` this repository
 * `cd ember-spaniel`
 * `npm install`
 * `bower install`

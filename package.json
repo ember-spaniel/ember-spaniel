@@ -11,7 +11,10 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "https://github.com/asakusuma/ember-spaniel",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asakusuma/ember-spaniel"
+  },
   "engines": {
     "node": ">= 0.12.0"
   },
