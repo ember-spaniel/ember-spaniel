@@ -1,6 +1,6 @@
 {
   "name": "ember-spaniel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Ember addon wrapping spaniel and providing viewport and requestAnimationFrame utilities",
   "directories": {
     "doc": "doc",
@@ -47,7 +47,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.7",
     "ember-rollup": "^0.3.0",
-    "spaniel": "^2.0.1"
+    "spaniel": "^2.0.2"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
