@@ -11,7 +11,7 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": "https://github.com/asakusuma/ember-spaniel",
   "engines": {
     "node": ">= 0.12.0"
   },
@@ -47,7 +47,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.7",
     "ember-rollup": "^0.3.0",
-    "spaniel": "^1.1.0"
+    "spaniel": "^2.0.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
