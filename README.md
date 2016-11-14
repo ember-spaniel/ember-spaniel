@@ -1,6 +1,66 @@
-# Ember-spaniel
+# ember-spaniel
 
-This README outlines the details of collaborating on this Ember addon.
+Ember addon wrapping [spaniel](https://github.com/linkedin/spaniel), a viewport tracking library, [IntersectionObserver](https://github.com/WICG/IntersectionObserver) polyfill, and `requestAnimationFrame` task utility.
+
+Including this addon will add Spaniel to your application, available for direct use in the app.
+
+```JavaScript
+import spaniel from 'spaniel';
+```
+
+The rest of the API is contained in a service.
+
+## `viewport` service API
+
+The `viewport` service will look for a `defaultRootMargin` object property on the application config. If not found, will default to 0, 0, 0, 0.
+
+```JavaScript
+// environment.js
+module.exports = {
+  ...
+  defaultRootMargin: {
+    top: 100,
+    bottom: 200
+  }
+}
+```
+
+#### `onInViewportOnce(el, callback, { context, rootMargin, ratio })` => `Function`
+
+Register a callback that will be called when the provided element first enters the viewport. Will get called on the next `requestAnimationFrame` if the element is already in the viewport. Returns a function that, when called, will cancel and clear the callback.
+
+```JavaScript
+export default Ember.Component.extend({
+  viewport: Ember.inject.service(),
+  didInsertElement() {
+    let viewport = this.get('viewport');
+    let el = this.get('element');
+    this.clearViewportCallback = viewport.onInViewportOnce(el, () => {
+      console.log('I am in the viewport');
+    });
+  },
+  willDestroyElement() {
+    this.clearViewportCallback();
+  }
+});
+```
+
+#### Global `Watcher`
+
+The service has a `Watcher` instance available for direct use.
+
+```JavaScript
+export default Ember.Component.extend({
+  viewport: Ember.inject.service(),
+  didInsertElement() {
+    let { watcher } = this.get('viewport');
+    let el = this.get('element');
+    watcher.watch(el, (e) => {
+      console.log(`${e} happened`);
+    });
+  }
+});
+```
 
 ## Installation
 
