@@ -45,7 +45,7 @@ export default Ember.Component.extend({
 });
 ```
 
-#### Global `Watcher`
+#### `getWatcher()`
 
 The service has a `Watcher` instance available for direct use.
 
@@ -53,7 +53,7 @@ The service has a `Watcher` instance available for direct use.
 export default Ember.Component.extend({
   viewport: Ember.inject.service(),
   didInsertElement() {
-    let { watcher } = this.get('viewport');
+    let watcher = this.get('viewport').getWatcher();
     let el = this.get('element');
     watcher.watch(el, (e) => {
       console.log(`${e} happened`);
