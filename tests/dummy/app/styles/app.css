@@ -19,6 +19,6 @@ h2 {
   right: 0px;
 }
 
-.inViewport {
+.isInViewport, .onInViewportOnce, .unreachable-onInViewportOnce {
   background-color: #999;
 }
