@@ -2,13 +2,32 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   viewport: Ember.inject.service(),
-  message: "Scroll around and see what happens",
+  cleanupTasks: [],
+  clear() {
+    for (let i = 0; i < this.cleanupTasks.length; i++) {
+      this.cleanupTasks.pop()();
+    }
+  },
   didInsertElement() {
     let viewport = this.get('viewport');
-    let el = document.getElementById('item-20');
-    viewport.onInViewportOnce(el, () => {
-      console.log('HO');
-      this.set('message', '20 in da viewport');
+    let first = document.getElementById('item-1');
+    let second = document.getElementById('item-5');
+    let third = document.getElementById('item-100');
+
+    viewport.isInViewport(first).then(() => {
+      Ember.$(first).addClass('isInViewport');
     });
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(second, () => {
+      Ember.$(second).addClass('onInViewportOnce');
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(third, () => {
+      Ember.$(third).addClass('unreachable-onInViewportOnce');
+    }));
+  },
+  willDestroyElement() {
+    this._super(...arguments);
+    this.clear();
   }
 });

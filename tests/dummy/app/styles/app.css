@@ -18,3 +18,7 @@ h2 {
   top: 0px;
   right: 0px;
 }
+
+.inViewport {
+  background-color: #999;
+}
