@@ -82,6 +82,10 @@ export default Ember.Component.extend({
 });
 ```
 
+## Requirements
+
+Ember `2.x.x` is required. Tests are only run against [latest LTS and latest release](http://emberjs.com/builds/).
+
 ## Installation
 
 * `git clone https://github.com/asakusuma/ember-spaniel.git` this repository
