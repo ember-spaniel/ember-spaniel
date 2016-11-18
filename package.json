@@ -50,7 +50,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.7",
     "ember-rollup": "^0.3.0",
-    "spaniel": "^2.0.2"
+    "spaniel": "^2.1.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

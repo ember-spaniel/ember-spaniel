@@ -40,7 +40,27 @@ export default Ember.Component.extend({
     });
   },
   willDestroyElement() {
+    this._super(...arguments);
     this.clearViewportCallback();
+  }
+});
+```
+
+#### `isInViewport(el, { ratio, rootMargin } = {}) ` => `Promise`
+
+Returns a promise that resolves if the element is in the viewport, otherwise rejects.
+
+```JavaScript
+export default Ember.Component.extend({
+  viewport: Ember.inject.service(),
+  didInsertElement() {
+    let viewport = this.get('viewport');
+    let el = this.get('element');
+    viewport.isInViewport(el).then(() => {
+      console.log('In the viewport');
+    }, () => {
+      console.log('Not in the viewport');
+    });
   }
 });
 ```
