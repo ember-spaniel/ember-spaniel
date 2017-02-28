@@ -5,7 +5,7 @@ export default Ember.Service.extend({
   spaniel,
   watcher: null,
   init() {
-    let config = this.container.lookupFactory('config:environment');
+    let config = Ember.getOwner(this).resolveRegistration('config:environment');
     let defaultRootMargin = config && config.defaultRootMargin;
     this.set('rootMargin', Ember.merge({
       top: 0,
