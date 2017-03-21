@@ -4,9 +4,13 @@ import spaniel from 'spaniel';
 export default Ember.Service.extend({
   spaniel,
   watcher: null,
+
   init() {
+    this._super(...arguments);
+
     let config = Ember.getOwner(this).resolveRegistration('config:environment');
     let defaultRootMargin = config && config.defaultRootMargin;
+
     this.set('rootMargin', Ember.merge({
       top: 0,
       left: 0,
@@ -14,11 +18,13 @@ export default Ember.Service.extend({
       bottom: 0,
     }, defaultRootMargin));
   },
+
   getWatcher() {
     return this.watcher || (this.watcher = new spaniel.Watcher({
       rootMargin: this.get('rootMargin')
     }));
   },
+
   isInViewport(el, { ratio, rootMargin } = {}) {
     rootMargin = rootMargin || this.get('rootMargin');
     return new Ember.RSVP.Promise((resolve, reject) => {
@@ -35,6 +41,7 @@ export default Ember.Service.extend({
       }, rootMargin);
     });
   },
+
   onInViewportOnce(el, callback, { context, rootMargin, ratio } = {}) {
     let watcher = !!(rootMargin || ratio) ? new spaniel.Watcher({ rootMargin, ratio }) : this.getWatcher();
     watcher.watch(el, function onInViewportOnceCallback() {
