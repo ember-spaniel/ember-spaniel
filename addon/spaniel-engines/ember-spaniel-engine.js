@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const rAF = (typeof window === 'object') && typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame : () => {};
+const rAF = (typeof window === 'object') && typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame : (callback) => callback();
 
 export default {
   reads: [],
