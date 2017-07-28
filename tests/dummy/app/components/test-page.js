@@ -22,6 +22,17 @@ export default Ember.Component.extend({
       Ember.$(second).addClass('onInViewportOnce');
     }));
 
+    this.cleanupTasks.push(viewport.onInViewportOnce(second, () => {
+      Ember.$(second).addClass('onInViewportOnceCustom');
+    }, {
+      rootMargin: {
+        top: 10,
+        bottom: 10,
+        left: 10,
+        right: 10
+      }
+    }));
+
     this.cleanupTasks.push(viewport.onInViewportOnce(third, () => {
       Ember.$(third).addClass('unreachable-onInViewportOnce');
     }));

@@ -21,6 +21,15 @@ test('onInViewportOnce called when item in viewport', function(assert) {
   });
 });
 
+test('onInViewportOnce called when item in viewport using custom rootMargin', function(assert) {
+  visit('/');
+
+  andThen(function() {
+    let results = find('.onInViewportOnceCustom');
+    assert.equal(results.length, 1, 'Item observed in viewport');
+  });
+});
+
 test('onInViewportOnce not called when item not in viewport', function(assert) {
   visit('/');
 
