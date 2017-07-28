@@ -3,7 +3,9 @@ import spaniel from 'spaniel';
 
 export default Ember.Service.extend({
   spaniel,
-  watcher: null,
+
+  // Private, don't touch this, use getWatcher()
+  _globalWatcher: null,
 
   init() {
     this._super(...arguments);
@@ -20,7 +22,7 @@ export default Ember.Service.extend({
   },
 
   getWatcher() {
-    return this.watcher || (this.watcher = new spaniel.Watcher({
+    return this._globalWatcher || (this._globalWatcher = new spaniel.Watcher({
       rootMargin: this.get('rootMargin')
     }));
   },
@@ -43,13 +45,23 @@ export default Ember.Service.extend({
   },
 
   onInViewportOnce(el, callback, { context, rootMargin, ratio } = {}) {
-    let watcher = !!(rootMargin || ratio) ? new spaniel.Watcher({ rootMargin, ratio }) : this.getWatcher();
+    const canUseGlobalWatcher = !!!(rootMargin || ratio);
+    let watcher = canUseGlobalWatcher ? this.getWatcher() : new spaniel.Watcher({ rootMargin, ratio });
     watcher.watch(el, function onInViewportOnceCallback() {
       callback.apply(context, arguments);
       watcher.unwatch(el);
     });
     return function clearOnInViewportOnce() {
       watcher.unwatch(el);
+      if (!canUseGlobalWatcher) {
+        watcher.destroy();
+      }
     };
+  },
+
+  willDestroy() {
+    if (this._globalWatcher) {
+      this._globalWatcher.destroy();
+    }
   }
 });
