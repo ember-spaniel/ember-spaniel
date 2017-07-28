@@ -43,13 +43,23 @@ export default Ember.Service.extend({
   },
 
   onInViewportOnce(el, callback, { context, rootMargin, ratio } = {}) {
-    let watcher = !!(rootMargin || ratio) ? new spaniel.Watcher({ rootMargin, ratio }) : this.getWatcher();
+    const requiresCustomWatcher = !!(rootMargin || ratio);
+    let watcher = requiresCustomWatcher ? new spaniel.Watcher({ rootMargin, ratio }) : this.getWatcher();
     watcher.watch(el, function onInViewportOnceCallback() {
       callback.apply(context, arguments);
       watcher.unwatch(el);
     });
     return function clearOnInViewportOnce() {
       watcher.unwatch(el);
+      if (requiresCustomWatcher) {
+        watcher.destroy();
+      }
     };
+  },
+
+  willDestroy() {
+    if (this.watcher) {
+      this.watcher.destroy();
+    }
   }
 });
