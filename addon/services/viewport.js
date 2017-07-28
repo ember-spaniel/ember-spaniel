@@ -45,7 +45,7 @@ export default Ember.Service.extend({
   },
 
   onInViewportOnce(el, callback, { context, rootMargin, ratio } = {}) {
-    const canUseGlobalWatcher = !!!(rootMargin || ratio);
+    const canUseGlobalWatcher = !(rootMargin || ratio);
     let watcher = canUseGlobalWatcher ? this.getWatcher() : new spaniel.Watcher({ rootMargin, ratio });
     watcher.watch(el, function onInViewportOnceCallback() {
       callback.apply(context, arguments);
