@@ -1,6 +1,6 @@
 {
   "name": "ember-spaniel",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Ember addon wrapping spaniel and providing viewport and requestAnimationFrame utilities",
   "directories": {
     "doc": "doc",
@@ -21,7 +21,7 @@
     "calculate-cache-key-for-tree": "^1.1.0",
     "ember-cli-babel": "^6.3.0",
     "ember-rollup": "^0.3.8",
-    "spaniel": "^3.1.1"
+    "spaniel": "^2.3.0"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
