@@ -21,7 +21,7 @@
     "calculate-cache-key-for-tree": "^1.1.0",
     "ember-cli-babel": "^6.3.0",
     "ember-rollup": "^0.3.8",
-    "spaniel": "lynchbomb/spaniel#cbcc769"
+    "spaniel": "release-v2"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
