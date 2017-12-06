@@ -1,5 +1,9 @@
-import Ember from 'ember';
-const rAF = (typeof window === 'object') && typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame : (callback) => setTimeout(callback);
+import Ember from "ember";
+const rAF =
+  typeof window === "object" &&
+  typeof window.requestAnimationFrame === "function"
+    ? window.requestAnimationFrame
+    : callback => setTimeout(callback);
 
 export default {
   reads: [],
@@ -31,5 +35,15 @@ export default {
         });
       });
     }
+  },
+  flushReadQueue() {
+    this.reads = [];
+  },
+  flushWorkQueue() {
+    this.work = [];
+  },
+  flushAll() {
+    this.flushReadQueue();
+    this.flushWorkQueue();
   }
 };
