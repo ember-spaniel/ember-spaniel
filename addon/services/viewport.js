@@ -21,10 +21,10 @@ export default Ember.Service.extend({
     }, defaultRootMargin));
   },
 
-  getWatcher() {
-    return this._globalWatcher || (this._globalWatcher = new spaniel.Watcher({
+  getWatcher(options = {}) {
+    return this._globalWatcher || (this._globalWatcher = new spaniel.Watcher(Ember.merge({
       rootMargin: this.get('rootMargin')
-    }));
+    }, options)));
   },
 
   isInViewport(el, { ratio, rootMargin } = {}) {
