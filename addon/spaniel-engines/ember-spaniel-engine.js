@@ -36,14 +36,14 @@ export default {
       });
     }
   },
-  flushReadQueue() {
+  resetReadQueue() {
     this.reads = [];
   },
-  flushWorkQueue() {
+  resetWorkQueue() {
     this.work = [];
   },
-  flushAll() {
-    this.flushReadQueue();
-    this.flushWorkQueue();
+  resetAll() {
+    this.resetReadQueue();
+    this.resetWorkQueue();
   }
 };

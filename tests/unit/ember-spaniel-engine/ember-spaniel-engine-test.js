@@ -9,14 +9,14 @@ module("Unit | ember-spaniel-engine", {
   }
 });
 
-test("test scheduleRead and flushReadQueue", function(assert) {
+test("test scheduleRead and resetReadQueue", function(assert) {
   this.engine.scheduleRead(noopFn);
   assert.equal(
     this.engine.reads.length,
     1,
     "It schedules a callback in the read queue"
   );
-  this.engine.flushReadQueue();
+  this.engine.resetReadQueue();
   assert.equal(
     this.engine.reads.length,
     0,
@@ -24,14 +24,14 @@ test("test scheduleRead and flushReadQueue", function(assert) {
   );
 });
 
-test("test scheduleWork and flushWorkQueue", function(assert) {
+test("test scheduleWork and resetWorkQueue", function(assert) {
   this.engine.scheduleWork(noopFn);
   assert.equal(
     this.engine.work.length,
     1,
     "It schedules a callback in the work queue"
   );
-  this.engine.flushWorkQueue();
+  this.engine.resetWorkQueue();
   assert.equal(
     this.engine.work.length,
     0,
@@ -39,11 +39,11 @@ test("test scheduleWork and flushWorkQueue", function(assert) {
   );
 });
 
-test("test flushAll", function(assert) {
+test("test resetAll", function(assert) {
   this.engine.scheduleRead(noopFn);
   this.engine.scheduleWork(noopFn);
 
-  this.engine.flushAll();
+  this.engine.resetAll();
   assert.equal(
     this.engine.work.length,
     0,
