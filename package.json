@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "ember build",
+    "prepublish": "node prepublish.js",
     "start": "ember server",
     "test": "ember try:each"
   },
@@ -20,7 +21,7 @@
   "dependencies": {
     "calculate-cache-key-for-tree": "^1.1.0",
     "ember-cli-babel": "^6.3.0",
-    "ember-rollup": "^0.3.8",
+    "ember-rollup": "^1.0.1",
     "spaniel": "2.4.4"
   },
   "devDependencies": {
