@@ -1,29 +1,36 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
+import $ from 'jquery';
 
-export default Ember.Component.extend({
-  viewport: Ember.inject.service(),
-  cleanupTasks: [],
+export default Component.extend({
+  init() {
+    this._super(...arguments);
+    this.cleanupTasks = [];
+  },
+
+  viewport: service(),
   clear() {
     for (let i = 0; i < this.cleanupTasks.length; i++) {
       this.cleanupTasks.pop()();
     }
   },
+
   didInsertElement() {
     let viewport = this.get('viewport');
-    let first = document.getElementById('item-1');
+    let first = document.getElementById("item-1");
     let second = document.getElementById('item-5');
     let third = document.getElementById('item-100');
 
     viewport.isInViewport(first).then(() => {
-      Ember.$(first).addClass('isInViewport');
+      $(first).addClass('isInViewport');
     });
 
     this.cleanupTasks.push(viewport.onInViewportOnce(second, () => {
-      Ember.$(second).addClass('onInViewportOnce');
+      $(second).addClass('onInViewportOnce');
     }));
 
     this.cleanupTasks.push(viewport.onInViewportOnce(second, () => {
-      Ember.$(second).addClass('onInViewportOnceCustom');
+      $(second).addClass('onInViewportOnceCustom');
     }, {
       rootMargin: {
         top: 10,
@@ -34,8 +41,9 @@ export default Ember.Component.extend({
     }));
 
     this.cleanupTasks.push(viewport.onInViewportOnce(third, () => {
-      Ember.$(third).addClass('unreachable-onInViewportOnce');
+      $(third).addClass('unreachable-onInViewportOnce');
     }));
+
   },
   willDestroyElement() {
     this._super(...arguments);

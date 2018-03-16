@@ -1,7 +1,10 @@
-import Ember from 'ember';
+import Service from '@ember/service';
+import { getOwner } from '@ember/application';
+import { merge } from '@ember/polyfills';
+import { Promise } from 'rsvp';
 import spaniel from 'spaniel';
 
-export default Ember.Service.extend({
+export default Service.extend({
   spaniel,
 
   // Private, don't touch this, use getWatcher()
@@ -9,16 +12,16 @@ export default Ember.Service.extend({
 
   init() {
     this._super(...arguments);
-
-    let config = Ember.getOwner(this).resolveRegistration('config:environment');
+    let config = getOwner(this).resolveRegistration('config:environment');
     let defaultRootMargin = config && config.defaultRootMargin;
 
-    this.set('rootMargin', Ember.merge({
+    this.set('rootMargin', merge({
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
     }, defaultRootMargin));
+
   },
 
   getWatcher() {
@@ -29,7 +32,7 @@ export default Ember.Service.extend({
 
   isInViewport(el, { ratio, rootMargin } = {}) {
     rootMargin = rootMargin || this.get('rootMargin');
-    return new Ember.RSVP.Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       spaniel.elementSatisfiesRatio(el, ratio, (flag) => {
         if (flag) {
           resolve({
