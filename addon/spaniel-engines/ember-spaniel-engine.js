@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { join } from '@ember/runloop';
 const rAF = (typeof window === 'object') && typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame : (callback) => setTimeout(callback);
 
 export default {
@@ -17,7 +17,7 @@ export default {
     if (!this.running) {
       this.running = true;
       rAF(() => {
-        Ember.run.join(() => {
+        join(() => {
           for (let i = 0, rlen = this.reads.length; i < rlen; i++) {
             this.reads.pop()();
           }

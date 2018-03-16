@@ -93,6 +93,11 @@ Ember `2.x.x` is required. Tests are only run against [latest LTS and latest rel
 * `npm install`
 * `bower install`
 
+### Linting
+
+* `npm run lint:js`
+* `npm run lint:js -- --fix`
+
 ## Running
 
 * `ember serve`
@@ -101,8 +106,8 @@ Ember `2.x.x` is required. Tests are only run against [latest LTS and latest rel
 ## Running Tests
 
 * `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+* `ember test` – Runs the test suite on the current Ember version
+* `ember test --server` – Runs the test suite in "watch mode"
 
 ## Building
 
