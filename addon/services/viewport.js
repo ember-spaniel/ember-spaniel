@@ -24,9 +24,11 @@ export default Service.extend({
 
   },
 
-  getWatcher() {
+  getWatcher(root = window, ALLOW_CACHED_SCHEDULER = false) {
     return this._globalWatcher || (this._globalWatcher = new spaniel.Watcher({
-      rootMargin: this.get('rootMargin')
+      rootMargin: this.get('rootMargin'),
+      ALLOW_CACHED_SCHEDULER: ALLOW_CACHED_SCHEDULER,
+      root: root
     }));
   },
 
@@ -47,13 +49,15 @@ export default Service.extend({
     });
   },
 
-  onInViewportOnce(el, callback, { context, rootMargin, ratio } = {}) {
-    const canUseGlobalWatcher = !(rootMargin || ratio);
-    let watcher = canUseGlobalWatcher ? this.getWatcher() : new spaniel.Watcher({ rootMargin, ratio });
+  onInViewportOnce(el, callback, { context, rootMargin, ratio, root = window, ALLOW_CACHED_SCHEDULER = false } = {}) {
+    const canUseGlobalWatcher = !(rootMargin || ratio || (root !== window));
+    let watcher = canUseGlobalWatcher ? this.getWatcher(root, ALLOW_CACHED_SCHEDULER) : new spaniel.Watcher({ rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER });    
+
     watcher.watch(el, function onInViewportOnceCallback() {
       callback.apply(context, arguments);
       watcher.unwatch(el);
     });
+ 
     return function clearOnInViewportOnce() {
       watcher.unwatch(el);
       if (!canUseGlobalWatcher) {
@@ -66,5 +70,9 @@ export default Service.extend({
     if (this._globalWatcher) {
       this._globalWatcher.destroy();
     }
+  },
+
+  invalidate() {
+    spaniel.invalidate();
   }
 });

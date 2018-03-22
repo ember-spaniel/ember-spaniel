@@ -25,9 +25,13 @@ module.exports = {
 }
 ```
 
-#### `onInViewportOnce(el, callback, { context, rootMargin, ratio })` => `Function`
+#### `onInViewportOnce(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER })` => `Function`
 
-Register a callback that will be called when the provided element first enters the viewport. Will get called on the next `requestAnimationFrame` if the element is already in the viewport. Returns a function that, when called, will cancel and clear the callback.
+Register a callback that will be called when the provided element first enters the viewport. Will get called on the next `requestAnimationFrame` if the element is already in the viewport. Returns a function that, when called, will cancel and clear the callback. 
+
+Optionally includes the ability to specify a custom root, which defaults to `window`. When passing a custom root, the common case would include handling state invalidation (referenced below `invalidate()`).
+
+An optional flag `ALLOW_CACHED_SCHEDULER` which defaults to `false`. This feature flag when passed as `true` will allow for performant caching of `getBoundingClientRect` on elements within the `Spaniel#ElementScheduler`.
 
 ```JavaScript
 export default Ember.Component.extend({
@@ -37,6 +41,27 @@ export default Ember.Component.extend({
     let el = this.get('element');
     this.clearViewportCallback = viewport.onInViewportOnce(el, () => {
       console.log('I am in the viewport');
+    });
+  },
+  willDestroyElement() {
+    this._super(...arguments);
+    this.clearViewportCallback();
+  }
+});
+```
+
+```JavaScript
+export default Ember.Component.extend({
+  viewport: Ember.inject.service(),
+  didInsertElement() {
+    let viewport = this.get('viewport');
+    let fooChildElement = this.get('element');
+
+    this.clearViewportCallback = viewport.onInViewportOnce(fooChildElement, () => {
+      console.log('I am in the viewport');
+    }, {
+      root: fooCustomRoot,
+      ALLOW_CACHED_SCHEDULER: true
     });
   },
   willDestroyElement() {
@@ -82,6 +107,39 @@ export default Ember.Component.extend({
 });
 ```
 
+#### `invalidate()`
+
+Triggers Spaniel#invalidate on the viewport to invalidate cached state. Due to negative performance implications, this method should not be abused and as such should handle edge case scenarios only, such as when leveraging a custom root. The recommended pattern below binds an event to viewports custom root, that when fired triggers the viewports `invalidate()` method. Optionally leveraging Ember's Util #debounce method for improved performance. 
+
+```JavaScript
+export default Ember.Component.extend({
+  viewport: Ember.inject.service(),
+  didInsertElement() {
+    let viewport = this.get('viewport');
+    let el = this.get('element');
+    viewport.isInViewport(el).then(() => {
+      console.log('In the viewport');
+    }, () => {
+      console.log('Not in the viewport');
+    });
+
+    fooCustomRoot.addEventListener('foo-event', this.onFooMethod.bind(this), false);
+  },
+  onFooMethod() {
+    let viewport = this.get('viewport');
+
+    viewport.invalidate();
+  },
+  willDestroyElement() {
+    this._super(...arguments);
+    let viewport = this.get('viewport');
+
+    fooCustomRoot.removeEventListener('foo-event', this.onFooMethod.bind(this), false);
+  }
+});
+```
+
+
 ## Requirements
 
 Ember `2.x.x` is required. Tests are only run against [latest LTS and latest release](http://emberjs.com/builds/).
@@ -91,7 +149,6 @@ Ember `2.x.x` is required. Tests are only run against [latest LTS and latest rel
 * `git clone https://github.com/asakusuma/ember-spaniel.git` this repository
 * `cd ember-spaniel`
 * `npm install`
-* `bower install`
 
 ### Linting
 
