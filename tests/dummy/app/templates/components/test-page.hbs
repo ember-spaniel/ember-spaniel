@@ -1,8 +1,15 @@
-<div id="message">
-  {{message}}
-</div>
-{{#each items as |item count|}}
-  <div class="item" id="item-{{item}}">
-    Item {{item}}
-  </div>
-{{/each}}
+<section> 
+  {{#each items as |item count|}}
+    <div class="item" id="item-{{item}}">
+      Item {{item}}
+    </div>
+  {{/each}}
+</section>
+
+<section id="childContainer">
+  {{#each items as |item count|}}
+    <div class="item" id="child-item-{{item}}">
+      Child-Item {{item}}
+    </div>
+  {{/each}}
+</section>

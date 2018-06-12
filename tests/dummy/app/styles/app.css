@@ -4,21 +4,54 @@ html, body {
   margin: 0px;
 }
 
+body {
+  width: 960px;
+  margin: 0 auto;
+  background: #1b1b1b;
+}
+
 .item {
   border-bottom: 1px solid #999;
   padding: 20px;
 }
 
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 100;
+  backface-visibility: hidden;
+  background-color: #283e4a;
+}
+
 h2 {
   margin: 20px;
+  float: left;
+  color: #fff;
 }
 
-#message {
-  position: fixed;
-  top: 0px;
-  right: 0px;
+nav + div:first-of-type {
+  margin-top: 70px;
+  overflow: auto;
 }
 
-.isInViewport, .onInViewportOnce, .unreachable-onInViewportOnce {
+section {
+  float: left;
+  background-color: #fff;
+}
+
+section:first-of-type {
+  width: 70%;
+}
+
+#childContainer {
+  overflow-y: scroll;
+  height: 400px;
+  width: 30%;
+}
+
+.isInViewport, .onInViewportOnce, .unreachable-onInViewportOnce, .childOnInViewportOnce {
   background-color: #999;
 }

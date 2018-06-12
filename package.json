@@ -9,7 +9,6 @@
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
-    "prepublish": "node prepublish.js",
     "start": "ember serve",
     "test": "ember try:each"
   },
@@ -23,7 +22,7 @@
     "calculate-cache-key-for-tree": "^1.1.0",
     "ember-rollup": "^1.0.2",
     "ember-cli-babel": "^6.6.0",
-    "spaniel": "2.4.4"
+    "spaniel": "2.5.0"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
