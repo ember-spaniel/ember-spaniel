@@ -1,5 +1,11 @@
 # ember-spaniel Changelog
 
+### 0.4.0 (June 13, 2018)
+* New API method `invalidate`
+* Spaniel Dependency Bump to 2.5.0
+* Includes the ability to watch a custom root within `onInViewportOnce`
+* Includes optional perf flag `ALLOW_CACHED_SCHEDULER`
+
 ### 0.3.4 (February 14, 2018)
 * Spaniel Dependency Bump and unpinned to ^2.4.7
 
