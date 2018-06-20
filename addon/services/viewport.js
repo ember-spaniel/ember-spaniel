@@ -9,6 +9,7 @@ export default Service.extend({
 
   // Private, don't touch this, use getWatcher()
   _globalWatcher: null,
+  _isNativeIntersectionObserver: false,
 
   init() {
     this._super(...arguments);
@@ -22,6 +23,7 @@ export default Service.extend({
       bottom: 0,
     }, defaultRootMargin));
 
+    this._isNativeIntersectionObserver = this._checkIfIntersectionObserver();
   },
 
   getWatcher(root = window, ALLOW_CACHED_SCHEDULER = false) {
@@ -49,7 +51,39 @@ export default Service.extend({
     });
   },
 
-  onInViewportOnce(el, callback, { context, rootMargin, ratio, root = window, ALLOW_CACHED_SCHEDULER = false } = {}) {
+  onInViewportOnce(el, callback, { context, rootMargin, ratio, root = window, ALLOW_CACHED_SCHEDULER = false, SPANIEL_WATCHER = false } = {}) {
+    if(SPANIEL_WATCHER || !this._isNativeIntersectionObserver){
+      this._initSpanielWatcher(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER });
+    }else{
+      this._initNativeObserver(el, callback, { context, rootMargin, ratio, root });
+    }
+  },
+
+  willDestroy() {
+    if (this._globalWatcher) {
+      this._globalWatcher.destroy();
+    }
+  },
+
+  invalidate() {
+    spaniel.invalidate();
+  },
+
+  _checkIfIntersectionObserver() {
+    if ('IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype) {
+      if (!('isIntersecting' in window.IntersectionObserverEntry.prototype)) {
+        Object.defineProperty(window.IntersectionObserverEntry.prototype, 'isIntersecting', {
+          get: function() { return this.intersectionRatio > 0; }
+        });
+      }
+
+      return true;
+    }
+
+    return false;
+  },
+
+  _initSpanielWatcher(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER }) {
     const canUseGlobalWatcher = !(rootMargin || ratio || (root !== window));
     let watcher = canUseGlobalWatcher ? this.getWatcher(root, ALLOW_CACHED_SCHEDULER) : new spaniel.Watcher({ rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER });    
 
@@ -66,13 +100,35 @@ export default Service.extend({
     };
   },
 
-  willDestroy() {
-    if (this._globalWatcher) {
-      this._globalWatcher.destroy();
+  _initNativeObserver(el, callback, { context, rootMargin, ratio, root }) {      
+    if (typeof rootMargin === 'object') {
+      rootMargin = `${rootMargin.top || 0}px ${rootMargin.right || 0}px ${rootMargin.bottom || 0}px ${rootMargin.left || 0}px`
     }
-  },
 
-  invalidate() {
-    spaniel.invalidate();
+    if (root === window) {
+      root = null;
+    }
+
+    let options = {
+      root: root,
+      rootMargin: rootMargin,
+      threshold: ratio
+    }
+    
+    let observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          callback.apply(context, arguments);
+          observer.unobserve(el);
+        }
+      });
+    }, options);
+
+    observer.observe(el);
+
+    return function clearOnInViewportOnce() {
+      observer.unobserve(el);
+      observer.disconnect();
+    };
   }
 });

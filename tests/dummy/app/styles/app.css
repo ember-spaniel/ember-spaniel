@@ -52,6 +52,6 @@ section:first-of-type {
   width: 30%;
 }
 
-.isInViewport, .onInViewportOnce, .unreachable-onInViewportOnce, .childOnInViewportOnce {
+.isInViewport, .onInViewportOnce, .unreachable-onInViewportOnce, .childOnInViewportOnce, .onInViewportOnceCustom {
   background-color: #999;
 }

@@ -24,9 +24,13 @@ export default Component.extend({
     let second = document.getElementById('item-5');
     let third = document.getElementById('item-5');
     let fourth = document.getElementById('item-100');
+    let fifth = document.getElementById('item-80');
+    let sixth = document.getElementById('item-75');
     let childFirst = document.getElementById('child-item-3');
     let childSecond = document.getElementById('child-item-10');
     let childThird = document.getElementById('child-item-100');
+    let childFourth = document.getElementById('child-item-50');
+    let childFifth = document.getElementById('child-item-35');
     let childRoot = document.getElementById('childContainer');
 
     viewport.isInViewport(first).then(() => {
@@ -35,14 +39,11 @@ export default Component.extend({
 
     this.cleanupTasks.push(viewport.onInViewportOnce(second, () => {
       second.classList.add('onInViewportOnce');
-    },{
-      ALLOW_CACHED_SCHEDULER: true
     }));
 
     this.cleanupTasks.push(viewport.onInViewportOnce(third, () => {
       third.classList.add('onInViewportOnceCustom');
     }, {
-      ALLOW_CACHED_SCHEDULER: true,
       rootMargin: {
         top: 10,
         bottom: 10,
@@ -53,31 +54,55 @@ export default Component.extend({
 
     this.cleanupTasks.push(viewport.onInViewportOnce(fourth, () => {
       fourth.classList.add('unreachable-onInViewportOnce');
-    }, {
-      ALLOW_CACHED_SCHEDULER: true
     }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(fifth, () => {
+      fifth.classList.add('onInViewportOnce');
+    },{
+      ALLOW_CACHED_SCHEDULER: true,
+      SPANIEL_WATCHER: true
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(sixth, () => {
+      sixth.classList.add('onInViewportOnce');
+    },{
+      SPANIEL_WATCHER: true
+    }));
+
 
     // CHILD ROOT
 
     this.cleanupTasks.push(viewport.onInViewportOnce(childFirst, () => {
       childFirst.classList.add('childOnInViewportOnce');
     }, {
-      root: childRoot,
-      ALLOW_CACHED_SCHEDULER: true
+      root: childRoot
     }));
 
     this.cleanupTasks.push(viewport.onInViewportOnce(childSecond, () => {
       childSecond.classList.add('childOnInViewportOnce');
     }, {
-      root: childRoot,
-      ALLOW_CACHED_SCHEDULER: true
+      root: childRoot
     }));
 
     this.cleanupTasks.push(viewport.onInViewportOnce(childThird, () => {
       childThird.classList.add('childOnInViewportOnce');
     }, {
+      root: childRoot
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childFourth, () => {
+      childFourth.classList.add('childOnInViewportOnce');
+    }, {
       root: childRoot,
-      ALLOW_CACHED_SCHEDULER: true
+      ALLOW_CACHED_SCHEDULER: true,
+      SPANIEL_WATCHER: true
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childFifth, () => {
+      childFifth.classList.add('childOnInViewportOnce');
+    }, {
+      root: childRoot,
+      SPANIEL_WATCHER: true
     }));
 
     childRoot.addEventListener('scroll', this.onIsDirty.bind(this), false);
