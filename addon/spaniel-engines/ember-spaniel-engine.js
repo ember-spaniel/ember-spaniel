@@ -1,4 +1,5 @@
 import { join } from '@ember/runloop';
+import { deprecate } from '@ember/debug';
 const rAF = (typeof window === 'object') && typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame : (callback) => setTimeout(callback);
 
 export default {
@@ -8,10 +9,20 @@ export default {
   scheduleRead(callback) {
     this.reads.unshift(callback);
     this.run();
+    deprecate(
+      'Import `scheduleRead` directly from Spaniel >= v4.x.x.',
+      true,
+      { id: 'ember-spaniel-scheduleRead', until: '1.0.0' }
+    );
   },
   scheduleWork(callback) {
-    this.work.unshift(callback);
+    this.work.unshift(callback)
     this.run();
+    deprecate(
+      'Import `scheduleWork` directly from Spaniel >= v4.x.x.',
+      true,
+      { id: 'ember-spaniel-scheduleWork', until: '1.0.0' }
+    );
   },
   run() {
     if (!this.running) {
