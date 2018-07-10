@@ -1,7 +1,6 @@
 import Service from '@ember/service';
 import { getOwner } from '@ember/application';
 import { merge } from '@ember/polyfills';
-import { Promise } from 'rsvp';
 import spaniel from 'spaniel';
 
 export default Service.extend({
@@ -34,28 +33,19 @@ export default Service.extend({
     }));
   },
 
-  isInViewport(el, { ratio, rootMargin } = {}) {
-    rootMargin = rootMargin || this.get('rootMargin');
-    return new Promise((resolve, reject) => {
-      spaniel.elementSatisfiesRatio(el, ratio, (flag) => {
-        if (flag) {
-          resolve({
-            el
-          });
-        } else {
-          reject({
-            el
-          });
-        }
-      }, rootMargin);
-    });
+  isInViewport(el, callback, { context, rootMargin, ratio = 0, root = window, SPANIEL_IO_POLY = false } = {}) {
+    if (SPANIEL_IO_POLY || !this._isNativeIntersectionObserver) {
+      this._initSpanielIsInViewport(el, callback, { context, rootMargin, ratio, root });
+    }else{
+      this._initNativeObserver(el, callback, { context, rootMargin, ratio, root });
+    }
   },
 
   onInViewportOnce(el, callback, { context, rootMargin, ratio, root = window, ALLOW_CACHED_SCHEDULER = false, SPANIEL_WATCHER = false } = {}) {
-    if(SPANIEL_WATCHER || !this._isNativeIntersectionObserver){
+    if (SPANIEL_WATCHER || !this._isNativeIntersectionObserver) {
       this._initSpanielWatcher(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER });
     }else{
-      this._initNativeObserver(el, callback, { context, rootMargin, ratio, root });
+      this._initNativeObserver(el, callback, { context, rootMargin, ratio, root }, true);
     }
   },
 
@@ -83,6 +73,56 @@ export default Service.extend({
     return false;
   },
 
+  _initSpanielIsInViewport(el, callback, { context, rootMargin, ratio, root }) {
+    let options = {
+      rootMargin: rootMargin || this.get('rootMargin'),
+      root: root,
+      ratio: ratio
+    };
+
+    spaniel.elementSatisfiesRatio(el, (isInViewport) => {
+      if (isInViewport) {
+        callback.apply(context, arguments);
+      }
+    }, options);
+  },
+
+  _initNativeObserver(el, callback, { context, rootMargin, ratio, root }, isOnce = false) {
+    if (typeof rootMargin === 'object') {
+      rootMargin = `${rootMargin.top || 0}px ${rootMargin.right || 0}px ${rootMargin.bottom || 0}px ${rootMargin.left || 0}px`
+    }
+
+    if (root === window) {
+      root = null;
+    }
+
+    let options = {
+      root: root,
+      rootMargin: rootMargin,
+      threshold: ratio
+    };
+    
+    let observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          callback.apply(context, arguments);
+          if (isOnce) {  
+            observer.unobserve(el);
+          }
+        }
+      });
+    }, options);
+
+    observer.observe(el);
+
+    if (isOnce) {
+      return function clearOnInViewportOnce() {
+        observer.unobserve(el);
+        observer.disconnect();
+      };
+    }
+  },
+
   _initSpanielWatcher(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER }) {
     const canUseGlobalWatcher = !(rootMargin || ratio || (root !== window));
     let watcher = canUseGlobalWatcher ? this.getWatcher(root, ALLOW_CACHED_SCHEDULER) : new spaniel.Watcher({ rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER });    
@@ -97,38 +137,6 @@ export default Service.extend({
       if (!canUseGlobalWatcher) {
         watcher.destroy();
       }
-    };
-  },
-
-  _initNativeObserver(el, callback, { context, rootMargin, ratio, root }) {      
-    if (typeof rootMargin === 'object') {
-      rootMargin = `${rootMargin.top || 0}px ${rootMargin.right || 0}px ${rootMargin.bottom || 0}px ${rootMargin.left || 0}px`
-    }
-
-    if (root === window) {
-      root = null;
-    }
-
-    let options = {
-      root: root,
-      rootMargin: rootMargin,
-      threshold: ratio
-    }
-    
-    let observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.intersectionRatio > 0) {
-          callback.apply(context, arguments);
-          observer.unobserve(el);
-        }
-      });
-    }, options);
-
-    observer.observe(el);
-
-    return function clearOnInViewportOnce() {
-      observer.unobserve(el);
-      observer.disconnect();
     };
   }
 });

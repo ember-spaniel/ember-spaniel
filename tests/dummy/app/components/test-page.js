@@ -33,7 +33,7 @@ export default Component.extend({
     let childFifth = document.getElementById('child-item-35');
     let childRoot = document.getElementById('childContainer');
 
-    viewport.isInViewport(first).then(() => {
+    viewport.isInViewport(first, () => {
       first.classList.add('isInViewport');
     });
 

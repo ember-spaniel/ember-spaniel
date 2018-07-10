@@ -10,18 +10,18 @@ export default {
     this.reads.unshift(callback);
     this.run();
     deprecate(
-      'Import `scheduleRead` directly from Spaniel >= v4.x.x.',
+      'Import `scheduleRead` from ember-batcher >= v1.x.x.',
       true,
-      { id: 'ember-spaniel-scheduleRead', until: '1.0.0' }
+      { id: 'ember-spaniel-scheduleRead', until: '1.1.0' }
     );
   },
   scheduleWork(callback) {
     this.work.unshift(callback)
     this.run();
     deprecate(
-      'Import `scheduleWork` directly from Spaniel >= v4.x.x.',
+      'Import `scheduleWrite` from ember-batcher >= v1.x.x.',
       true,
-      { id: 'ember-spaniel-scheduleWork', until: '1.0.0' }
+      { id: 'ember-spaniel-scheduleWork', until: '1.1.0' }
     );
   },
   run() {
