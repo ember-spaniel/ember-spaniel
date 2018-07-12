@@ -1,6 +1,7 @@
 import { join } from '@ember/runloop';
-import { deprecate } from '@ember/debug';
 const rAF = (typeof window === 'object') && typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame : (callback) => setTimeout(callback);
+
+// import { deprecate } from '@ember/debug';
 
 export default {
   reads: [],
@@ -9,20 +10,20 @@ export default {
   scheduleRead(callback) {
     this.reads.unshift(callback);
     this.run();
-    deprecate(
-      'Import `scheduleRead` from ember-batcher >= v1.x.x.',
-      true,
-      { id: 'ember-spaniel-scheduleRead', until: '1.1.0' }
-    );
+    // deprecate(
+    //   'Import `scheduleRead` from ember-batcher >= v1.x.x.',
+    //   true,
+    //   { id: 'ember-spaniel-scheduleRead', until: '1.1.0' }
+    // );
   },
   scheduleWork(callback) {
     this.work.unshift(callback)
     this.run();
-    deprecate(
-      'Import `scheduleWrite` from ember-batcher >= v1.x.x.',
-      true,
-      { id: 'ember-spaniel-scheduleWork', until: '1.1.0' }
-    );
+    // deprecate(
+    //   'Import `scheduleWrite` from ember-batcher >= v1.x.x.',
+    //   true,
+    //   { id: 'ember-spaniel-scheduleWork', until: '1.1.0' }
+    // );
   },
   run() {
     if (!this.running) {
