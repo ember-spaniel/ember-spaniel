@@ -1,6 +1,6 @@
 # ember-spaniel [![Build Status](https://travis-ci.org/asakusuma/ember-spaniel.svg?branch=master)](https://travis-ci.org/asakusuma/ember-spaniel) [![npm version](https://badge.fury.io/js/ember-spaniel.svg)](https://www.npmjs.com/package/ember-spaniel)
 
-Ember addon wrapping [spaniel](https://github.com/linkedin/spaniel), a viewport tracking library, [IntersectionObserver](https://github.com/WICG/IntersectionObserver) polyfill, and `requestAnimationFrame` task utility.
+Ember addon wrapping [spaniel](https://github.com/linkedin/spaniel), a viewport tracking library and [IntersectionObserver](https://github.com/WICG/IntersectionObserver) polyfill.
 
 Including this addon will add Spaniel to your application, available for direct use in the app.
 
@@ -25,13 +25,18 @@ module.exports = {
 }
 ```
 
-#### `onInViewportOnce(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER })` => `Function`
+#### `onInViewportOnce(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER, SPANIEL_WATCHER })` => `Function`
 
 Register a callback that will be called when the provided element first enters the viewport. Will get called on the next `requestAnimationFrame` if the element is already in the viewport. Returns a function that, when called, will cancel and clear the callback. 
 
-Optionally includes the ability to specify a custom root, which defaults to `window`. When passing a custom root, the common case would include handling state invalidation (referenced below `invalidate()`).
+Where supported, Native Intersection Observer will be leveraged, resulting in signification performance improvements as these operations are off the main thread. Be aware however, that your *callback is* executed on the main thread, as such the callback should operate as quickly as possible.
 
-An optional flag `ALLOW_CACHED_SCHEDULER` which defaults to `false`. This feature flag when passed as `true` will allow for performant caching of `getBoundingClientRect` on elements within the `Spaniel#ElementScheduler`.
+Optionally includes the ability to specify a custom root, which defaults to `window`. When passing a custom root, the common case would include handling state invalidation (referenced below `invalidate()`). If a custom root is leveraged, the target must be a descendant of the root element.
+
+Optional flags:
+`ALLOW_CACHED_SCHEDULER` which defaults to `false`. This feature flag when passed as `true` will allow for performant caching of `getBoundingClientRect` on elements within the `Spaniel#ElementScheduler`.
+
+`SPANIEL_WATCHER` which defaults to `false`. This feature flag when passed as `true` will force the Intersection Observer Polyfill for all browsers. 
 
 ```JavaScript
 export default Ember.Component.extend({
@@ -73,7 +78,9 @@ export default Ember.Component.extend({
 
 #### `isInViewport(el, { ratio, rootMargin } = {}) ` => `Promise`
 
-Returns a promise that resolves if the element is in the viewport, otherwise rejects.
+Register a callback that will be called when the provided element is in the viewport. Will get called on the next `requestAnimationFrame` if the element is already in the viewport.
+
+Where supported, Native Intersection Observer will be leveraged, resulting in signification performance improvements as these operations are off the main thread. Be aware however, that your *callback is* executed on the main thread, as such the callback should operate as quickly as possible.
 
 ```JavaScript
 export default Ember.Component.extend({
@@ -81,10 +88,8 @@ export default Ember.Component.extend({
   didInsertElement() {
     let viewport = this.get('viewport');
     let el = this.get('element');
-    viewport.isInViewport(el).then(() => {
-      console.log('In the viewport');
-    }, () => {
-      console.log('Not in the viewport');
+    viewport.isInViewport(el, () => {
+      console.log('In the viewport);
     });
   }
 });
@@ -117,10 +122,8 @@ export default Ember.Component.extend({
   didInsertElement() {
     let viewport = this.get('viewport');
     let el = this.get('element');
-    viewport.isInViewport(el).then(() => {
-      console.log('In the viewport');
-    }, () => {
-      console.log('Not in the viewport');
+    viewport.isInViewport(el, () => {
+      console.log('In the viewport);
     });
 
     fooCustomRoot.addEventListener('foo-event', this.onFooMethod.bind(this), false);
