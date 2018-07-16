@@ -2001,6 +2001,12 @@ ember-ajax@^3.1.0:
   dependencies:
     ember-cli-babel "^6.6.0"
 
+ember-batcher@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ember-batcher/-/ember-batcher-1.2.0.tgz#9d80eff0ad28b99764fe856fe987d3f4dc4cedc9"
+  dependencies:
+    ember-cli-babel "^6.14.1"
+
 ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.11.0, ember-cli-babel@^6.12.0, ember-cli-babel@^6.14.1, ember-cli-babel@^6.6.0, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2:
   version "6.14.1"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.14.1.tgz#796339229035910b625593caffbc2683792ada68"
@@ -5799,7 +5805,7 @@ sourcemap-validator@^1.0.5:
 
 "spaniel@git://github.com/linkedin/spaniel.git#v4":
   version "4.0.0"
-  resolved "git://github.com/linkedin/spaniel.git#1b2a78a9f14e1d23229cf0c0e941291293dbef1f"
+  resolved "git://github.com/linkedin/spaniel.git#4abaa0f657df11ea40622a16995597b07212961a"
 
 spawn-args@^0.2.0:
   version "0.2.0"
