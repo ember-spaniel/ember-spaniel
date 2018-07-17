@@ -1,4 +1,10 @@
 # ember-spaniel Changelog
+### 1.0.0 (July 17, 2018)
+* Upgrade of all dependencies
+* Deprecate and Extract engine `ember-spaniel-engine` logic into new micro library (Ember-Batcher)[https://github.com/lynchbomb/ember-batcher].
+* Native IntersectionObserver by default (where supported) with a fallback to the Spaniel IntersectionObserver poly.
+* API Update: `onInViewport` and `onInViewportOnce` now support Native IntersectionObserver with an optional flag to force the polyfill (`SPANIEL_IO_POLY: true`)
+* API Update/Deprecation: `onInViewport` now only accepts a callback function rather than a Promise (see README.md #isInViewport for details). 
 
 ### 0.4.0 (June 13, 2018)
 * New API method `invalidate`

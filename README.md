@@ -25,7 +25,7 @@ module.exports = {
 }
 ```
 
-#### `onInViewportOnce(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER, SPANIEL_WATCHER })` => `Function`
+#### `onInViewportOnce(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER, SPANIEL_IO_POLY })` => `Function`
 
 Register a callback that will be called when the provided element first enters the viewport. Will get called on the next `requestAnimationFrame` if the element is already in the viewport. Returns a function that, when called, will cancel and clear the callback. 
 
@@ -36,7 +36,7 @@ Optionally includes the ability to specify a custom root, which defaults to `win
 Optional flags:
 `ALLOW_CACHED_SCHEDULER` which defaults to `false`. This feature flag when passed as `true` will allow for performant caching of `getBoundingClientRect` on elements within the `Spaniel#ElementScheduler`.
 
-`SPANIEL_WATCHER` which defaults to `false`. This feature flag when passed as `true` will force the Intersection Observer Polyfill for all browsers. 
+`SPANIEL_IO_POLY` which defaults to `false`. This feature flag when passed as `true` will force the Intersection Observer Polyfill for all browsers. 
 
 ```JavaScript
 export default Ember.Component.extend({
@@ -89,7 +89,7 @@ export default Ember.Component.extend({
     let viewport = this.get('viewport');
     let el = this.get('element');
     viewport.isInViewport(el, () => {
-      console.log('In the viewport);
+      console.log('In the viewport');
     });
   }
 });
@@ -123,7 +123,7 @@ export default Ember.Component.extend({
     let viewport = this.get('viewport');
     let el = this.get('element');
     viewport.isInViewport(el, () => {
-      console.log('In the viewport);
+      console.log('In the viewport');
     });
 
     fooCustomRoot.addEventListener('foo-event', this.onFooMethod.bind(this), false);

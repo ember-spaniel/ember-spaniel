@@ -41,8 +41,8 @@ export default Service.extend({
     }
   },
 
-  onInViewportOnce(el, callback, { context, rootMargin, ratio, root = window, ALLOW_CACHED_SCHEDULER = false, SPANIEL_WATCHER = false } = {}) {
-    if (SPANIEL_WATCHER || !this._isNativeIntersectionObserver) {
+  onInViewportOnce(el, callback, { context, rootMargin, ratio, root = window, ALLOW_CACHED_SCHEDULER = false, SPANIEL_IO_POLY = false } = {}) {
+    if (SPANIEL_IO_POLY || !this._isNativeIntersectionObserver) {
       this._initSpanielWatcher(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER });
     }else{
       this._initNativeObserver(el, callback, { context, rootMargin, ratio, root }, true);

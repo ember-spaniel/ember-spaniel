@@ -24,7 +24,7 @@
     "ember-batcher": "^1.2.0",
     "ember-cli-babel": "^6.14.1",
     "ember-rollup": "^1.0.2",
-    "spaniel": "git://github.com/linkedin/spaniel.git#v4"
+    "spaniel": "^4.0.0"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.7.0",

@@ -5803,9 +5803,9 @@ sourcemap-validator@^1.0.5:
     lodash.template "~2.3.x"
     source-map "~0.1.x"
 
-"spaniel@git://github.com/linkedin/spaniel.git#v4":
+spaniel@^4.0.0:
   version "4.0.0"
-  resolved "git://github.com/linkedin/spaniel.git#4abaa0f657df11ea40622a16995597b07212961a"
+  resolved "https://registry.yarnpkg.com/spaniel/-/spaniel-4.0.0.tgz#9aeb8e384a163ed1d54135ac49d56faf7b665257"
 
 spawn-args@^0.2.0:
   version "0.2.0"
