@@ -29,12 +29,18 @@ export default Component.extend({
     let childFirst = document.getElementById('child-item-3');
     let childSecond = document.getElementById('child-item-10');
     let childThird = document.getElementById('child-item-100');
-    let childFourth = document.getElementById('child-item-50');
+    let childFourth = document.getElementById('child-item-6');
     let childFifth = document.getElementById('child-item-35');
+    let childSixth = document.getElementById('child-item-50');
     let childRoot = document.getElementById('childContainer');
 
     viewport.isInViewport(first, () => {
       first.classList.add('isInViewport');
+      console.log('IS IN VIEWPORT');
+    });
+
+    viewport.isInViewport(fifth, () => {
+      first.classList.add('unreachable-isInViewport');
       console.log('IS IN VIEWPORT');
     });
 
@@ -93,14 +99,14 @@ export default Component.extend({
     }));
 
     this.cleanupTasks.push(viewport.onInViewportOnce(childThird, () => {
-      childThird.classList.add('childOnInViewportOnce');
+      childThird.classList.add('childOnInViewportOnce', 'child-unreachable-onInViewportOnce');
       console.log('IS IN VIEWPORT ONCE');
     }, {
       root: childRoot
     }));
 
     this.cleanupTasks.push(viewport.onInViewportOnce(childFourth, () => {
-      childFourth.classList.add('childOnInViewportOnce');
+      childFourth.classList.add('childOnInViewportOnce', 'child-onInViewportOnce-poly');
       console.log('IS IN VIEWPORT ONCE');
     }, {
       root: childRoot,
@@ -108,11 +114,21 @@ export default Component.extend({
       SPANIEL_IO_POLY: true
     }));
 
+
     this.cleanupTasks.push(viewport.onInViewportOnce(childFifth, () => {
       childFifth.classList.add('childOnInViewportOnce');
       console.log('IS IN VIEWPORT ONCE');
     }, {
       root: childRoot,
+      SPANIEL_IO_POLY: true
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childSixth, () => {
+      childFourth.classList.add('childOnInViewportOnce', 'child-unreachable-onInViewportOnce-poly');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRoot,
+      ALLOW_CACHED_SCHEDULER: true,
       SPANIEL_IO_POLY: true
     }));
 
