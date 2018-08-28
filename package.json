@@ -19,9 +19,10 @@
   "license": "MIT",
   "author": "",
   "dependencies": {
+    "@babel/core": "^7.0.0",
     "calculate-cache-key-for-tree": "^1.1.0",
-    "ember-rollup": "^1.0.2",
     "ember-cli-babel": "^6.6.0",
+    "ember-rollup": "^2.1.0",
     "spaniel": "2.5.0"
   },
   "devDependencies": {
@@ -46,6 +47,7 @@
     "ember-source-channel-url": "^1.0.1",
     "ember-try": "^0.2.23",
     "ember-welcome-page": "^3.0.0",
+    "eslint": "^5.4.0",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^5.2.1",
     "loader.js": "^4.2.3"
