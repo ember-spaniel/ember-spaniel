@@ -1,5 +1,9 @@
 # ember-spaniel Changelog
 
+### 0.5.0 (August 27, 2018)
+* Update build tooling
+* Drop support for Node 4 and Node 6
+
 ### 0.4.0 (June 13, 2018)
 * New API method `invalidate`
 * Spaniel Dependency Bump to 2.5.0

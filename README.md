@@ -142,7 +142,8 @@ export default Ember.Component.extend({
 
 ## Requirements
 
-Ember `2.x.x` is required. Tests are only run against [latest LTS and latest release](http://emberjs.com/builds/).
+* Ember `2.x.x` is required. Ember 2.16-LTS and up is officially supported.
+* Node 8+
 
 ## Installation
 
