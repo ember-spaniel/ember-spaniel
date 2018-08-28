@@ -10,7 +10,8 @@
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
-    "test": "ember try:each"
+    "test": "ember try:each",
+    "prepare": "node prepublish.js" 
   },
   "repository": {
     "type": "git",
@@ -19,13 +20,13 @@
   "license": "MIT",
   "author": "",
   "dependencies": {
-    "@babel/core": "^7.0.0",
     "calculate-cache-key-for-tree": "^1.1.0",
-    "ember-cli-babel": "^6.6.0",
     "ember-rollup": "^2.1.0",
     "spaniel": "2.5.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "ember-cli-babel": "^6.6.0",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
     "ember-cli": "~3.0.0",
