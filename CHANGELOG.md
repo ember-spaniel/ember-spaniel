@@ -1,8 +1,16 @@
 # ember-spaniel Changelog
 
+### 0.6.0 (October 9, 2018)
+* Modify Node Support Engine dropping Node 4 and Node 6
+* Unpin Spaniel for future patches
+
 ### 0.5.0 (August 27, 2018)
 * Update build tooling
-* Drop support for Node 4 and Node 6
+* Drop Travis testing support for Node 4 and Node 6
+* Upgrade dependencies
+* Migrate to yarn
+* Prebuild spaniel.js
+* Effectively pulls in the 1.0.0 improvements that are runtime backwards compatible.
 
 ### 0.4.0 (June 13, 2018)
 * New API method `invalidate`
