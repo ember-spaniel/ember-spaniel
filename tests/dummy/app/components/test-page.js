@@ -33,6 +33,15 @@ export default Component.extend({
     let childFifth = document.getElementById('child-item-35');
     let childSixth = document.getElementById('child-item-50');
     let childRoot = document.getElementById('childContainer');
+    let childRootHor = document.getElementById('childHorizontalContainer');
+    let childFirstHor = document.getElementById('child-item-horizontal-3');
+    let childSecondHor = document.getElementById('child-item-horizontal-10');
+    let childThirdHor = document.getElementById('child-item-horizontal-100');
+    let childFourthHor = document.getElementById('child-item-horizontal-6');
+    let childFifthHor = document.getElementById('child-item-horizontal-35');
+    let childSixthHor = document.getElementById('child-item--horizontal-50');
+
+
 
     viewport.isInViewport(first, () => {
       first.classList.add('isInViewport');
@@ -124,7 +133,7 @@ export default Component.extend({
     }));
 
     this.cleanupTasks.push(viewport.onInViewportOnce(childSixth, () => {
-      childFourth.classList.add('childOnInViewportOnce', 'child-unreachable-onInViewportOnce-poly');
+      childSixth.classList.add('childOnInViewportOnce', 'child-unreachable-onInViewportOnce-poly');
       console.log('IS IN VIEWPORT ONCE');
     }, {
       root: childRoot,
@@ -133,6 +142,59 @@ export default Component.extend({
     }));
 
     childRoot.addEventListener('scroll', this.onIsDirty.bind(this), false);
+
+
+    // CHILD HORIZONTAL ROOT
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childFirstHor, () => {
+      childFirstHor.classList.add('childHorOnInViewportOnce');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRootHor
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childSecondHor, () => {
+      childSecondHor.classList.add('childHorOnInViewportOnce');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRootHor
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childThirdHor, () => {
+      childThirdHor.classList.add('childHorOnInViewportOnce', 'child-unreachable-onInViewportOnce');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRootHor
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childFourthHor, () => {
+      childFourthHor.classList.add('childHorOnInViewportOnce', 'child-onInViewportOnce-poly');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRootHor,
+      ALLOW_CACHED_SCHEDULER: true,
+      SPANIEL_IO_POLY: true
+    }));
+
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childFifthHor, () => {
+      childFifthHor.classList.add('childHorOnInViewportOnce');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRootHor,
+      SPANIEL_IO_POLY: true
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childSixthHor, () => {
+      childSixthHor.classList.add('childHorOnInViewportOnce', 'child-unreachable-onInViewportOnce-poly');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRootHor,
+      ALLOW_CACHED_SCHEDULER: true,
+      SPANIEL_IO_POLY: true
+    }));
+
+    childRootHor.addEventListener('scroll', this.onIsDirty.bind(this), false);
   },
   onIsDirty() {
     let viewport = this.get('viewport');

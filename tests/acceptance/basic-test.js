@@ -84,3 +84,12 @@ test('onInViewportOnce not called when child item is not in viewport', function(
     assert.equal(results.length, 0, 'Item not observed in viewport');
   });
 });
+
+test('onInViewportOnce called when horizontal child item in viewport', function(assert) {
+  visit('/');
+
+  andThen(function() {
+    let results = find('.childHorOnInViewportOnce');
+    assert.equal(results.length, 1, 'Item observed in viewport');
+  });
+});

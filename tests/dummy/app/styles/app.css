@@ -46,12 +46,24 @@ section:first-of-type {
   width: 70%;
 }
 
+#childHorizontalContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  background-color: #fff;
+}
+
+#childHorizontalContainer .item {
+  flex: 0 0 auto;
+  border-right: 1px solid black;
+}
+
 #childContainer {
   overflow-y: scroll;
   height: 400px;
   width: 30%;
 }
 
-.isInViewport, .onInViewportOnce, .unreachable-onInViewportOnce, .childOnInViewportOnce, .onInViewportOnceCustom {
+.isInViewport, .onInViewportOnce, .unreachable-onInViewportOnce, .childOnInViewportOnce, .onInViewportOnceCustom, .childHorOnInViewportOnce {
   background-color: #999;
 }
