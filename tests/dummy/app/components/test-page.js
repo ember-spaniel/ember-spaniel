@@ -1,5 +1,7 @@
 import Component from '@ember/component';
-import { inject as service} from '@ember/service';
+import {
+  inject as service
+} from '@ember/service';
 
 export default Component.extend({
   init() {
@@ -28,6 +30,10 @@ export default Component.extend({
     let childSecond = document.getElementById('child-item-10');
     let childThird = document.getElementById('child-item-100');
     let childRoot = document.getElementById('childContainer');
+    let childRootHor = document.getElementById('childHorizontalContainer');
+    let childFirstHor = document.getElementById('child-item-horizontal-1');
+    let childSecondHor = document.getElementById('child-item-horizontal-2');
+    let childThirdHor = document.getElementById('child-item-horizontal-50');
 
     viewport.isInViewport(first).then(() => {
       first.classList.add('isInViewport');
@@ -35,7 +41,7 @@ export default Component.extend({
 
     this.cleanupTasks.push(viewport.onInViewportOnce(second, () => {
       second.classList.add('onInViewportOnce');
-    },{
+    }, {
       ALLOW_CACHED_SCHEDULER: true
     }));
 
@@ -80,11 +86,36 @@ export default Component.extend({
       ALLOW_CACHED_SCHEDULER: true
     }));
 
+
+    // CHILD HORIZONTAL ROOT
+    this.cleanupTasks.push(viewport.onInViewportOnce(childFirstHor, () => {
+      childFirstHor.classList.add('childHorOnInViewportOnce');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRootHor
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childSecondHor, () => {
+      childSecondHor.classList.add('childHorOnInViewportOnce');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRootHor,
+      ALLOW_CACHED_SCHEDULER: true
+    }));
+
+    this.cleanupTasks.push(viewport.onInViewportOnce(childThirdHor, () => {
+      childThirdHor.classList.add('childHorOnInViewportOnce', 'child-unreachable-onInViewportOnceHor');
+      console.log('IS IN VIEWPORT ONCE');
+    }, {
+      root: childRootHor
+    }));
+
     childRoot.addEventListener('scroll', this.onIsDirty.bind(this), false);
   },
   onIsDirty() {
     let viewport = this.get('viewport');
     viewport.invalidate();
+    console.log('scroll');
   },
   willDestroyElement() {
     this._super(...arguments);
