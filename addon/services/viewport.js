@@ -1,7 +1,13 @@
 import Service from '@ember/service';
-import { getOwner } from '@ember/application';
-import { merge } from '@ember/polyfills';
-import { Promise } from 'rsvp';
+import {
+  getOwner
+} from '@ember/application';
+import {
+  merge
+} from '@ember/polyfills';
+import {
+  Promise
+} from 'rsvp';
 import spaniel from 'spaniel';
 
 export default Service.extend({
@@ -24,7 +30,7 @@ export default Service.extend({
 
   },
 
-  getWatcher(root = window, ALLOW_CACHED_SCHEDULER = false) {
+  getWatcher(root = window, ALLOW_CACHED_SCHEDULER = true) {
     return this._globalWatcher || (this._globalWatcher = new spaniel.Watcher({
       rootMargin: this.get('rootMargin'),
       ALLOW_CACHED_SCHEDULER: ALLOW_CACHED_SCHEDULER,
@@ -32,7 +38,10 @@ export default Service.extend({
     }));
   },
 
-  isInViewport(el, { ratio, rootMargin } = {}) {
+  isInViewport(el, {
+    ratio,
+    rootMargin
+  } = {}) {
     rootMargin = rootMargin || this.get('rootMargin');
     return new Promise((resolve, reject) => {
       spaniel.elementSatisfiesRatio(el, ratio, (flag) => {
@@ -49,15 +58,26 @@ export default Service.extend({
     });
   },
 
-  onInViewportOnce(el, callback, { context, rootMargin, ratio, root = window, ALLOW_CACHED_SCHEDULER = false } = {}) {
+  onInViewportOnce(el, callback, {
+    context,
+    rootMargin,
+    ratio,
+    root = window,
+    ALLOW_CACHED_SCHEDULER = true
+  } = {}) {
     const canUseGlobalWatcher = !(rootMargin || ratio || (root !== window));
-    let watcher = canUseGlobalWatcher ? this.getWatcher(root, ALLOW_CACHED_SCHEDULER) : new spaniel.Watcher({ rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER });    
+    let watcher = canUseGlobalWatcher ? this.getWatcher(root, ALLOW_CACHED_SCHEDULER) : new spaniel.Watcher({
+      rootMargin,
+      ratio,
+      root,
+      ALLOW_CACHED_SCHEDULER
+    });
 
     watcher.watch(el, function onInViewportOnceCallback() {
       callback.apply(context, arguments);
       watcher.unwatch(el);
     });
- 
+
     return function clearOnInViewportOnce() {
       watcher.unwatch(el);
       if (!canUseGlobalWatcher) {

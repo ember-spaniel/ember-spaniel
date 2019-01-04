@@ -27,11 +27,11 @@ module.exports = {
 
 #### `onInViewportOnce(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER })` => `Function`
 
-Register a callback that will be called when the provided element first enters the viewport. Will get called on the next `requestAnimationFrame` if the element is already in the viewport. Returns a function that, when called, will cancel and clear the callback. 
+Register a callback that will be called when the provided element first enters the viewport. Will get called on the next `requestAnimationFrame` if the element is already in the viewport. Returns a function that, when called, will cancel and clear the callback.
 
 Optionally includes the ability to specify a custom root, which defaults to `window`. When passing a custom root, the common case would include handling state invalidation (referenced below `invalidate()`).
 
-An optional flag `ALLOW_CACHED_SCHEDULER` which defaults to `false`. This feature flag when passed as `true` will allow for performant caching of `getBoundingClientRect` on elements within the `Spaniel#ElementScheduler`.
+An optional flag `ALLOW_CACHED_SCHEDULER` which defaults to `true`. This feature flag when passed as `false` will disable caching of `getBoundingClientRect` on elements within the `Spaniel#ElementScheduler`.
 
 ```JavaScript
 export default Ember.Component.extend({
@@ -61,7 +61,7 @@ export default Ember.Component.extend({
       console.log('I am in the viewport');
     }, {
       root: fooCustomRoot,
-      ALLOW_CACHED_SCHEDULER: true
+      ALLOW_CACHED_SCHEDULER: false
     });
   },
   willDestroyElement() {
@@ -71,7 +71,7 @@ export default Ember.Component.extend({
 });
 ```
 
-#### `isInViewport(el, { ratio, rootMargin } = {}) ` => `Promise`
+#### `isInViewport(el, { ratio, rootMargin } = {})` => `Promise`
 
 Returns a promise that resolves if the element is in the viewport, otherwise rejects.
 
@@ -139,36 +139,35 @@ export default Ember.Component.extend({
 });
 ```
 
-
 ## Requirements
 
-* Ember `2.x.x` is required. Ember 2.16-LTS and up is officially supported.
-* Node 8+
+- Ember `2.x.x` is required. Ember 2.16-LTS and up is officially supported.
+- Node 8+
 
 ## Installation
 
-* `git clone https://github.com/asakusuma/ember-spaniel.git` this repository
-* `cd ember-spaniel`
-* `npm install`
+- `git clone https://github.com/asakusuma/ember-spaniel.git` this repository
+- `cd ember-spaniel`
+- `npm install`
 
 ### Linting
 
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+- `npm run lint:js`
+- `npm run lint:js -- --fix`
 
 ## Running
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+- `ember serve`
+- Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ## Running Tests
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
+- `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
+- `ember test` – Runs the test suite on the current Ember version
+- `ember test --server` – Runs the test suite in "watch mode"
 
 ## Building
 
-* `ember build`
+- `ember build`
 
 For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).

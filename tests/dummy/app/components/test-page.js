@@ -90,14 +90,13 @@ export default Component.extend({
     // CHILD HORIZONTAL ROOT
     this.cleanupTasks.push(viewport.onInViewportOnce(childFirstHor, () => {
       childFirstHor.classList.add('childHorOnInViewportOnce');
-      console.log('IS IN VIEWPORT ONCE');
     }, {
-      root: childRootHor
+      root: childRootHor,
+      ALLOW_CACHED_SCHEDULER: false
     }));
 
     this.cleanupTasks.push(viewport.onInViewportOnce(childSecondHor, () => {
       childSecondHor.classList.add('childHorOnInViewportOnce');
-      console.log('IS IN VIEWPORT ONCE');
     }, {
       root: childRootHor,
       ALLOW_CACHED_SCHEDULER: true
@@ -105,9 +104,9 @@ export default Component.extend({
 
     this.cleanupTasks.push(viewport.onInViewportOnce(childThirdHor, () => {
       childThirdHor.classList.add('childHorOnInViewportOnce', 'child-unreachable-onInViewportOnceHor');
-      console.log('IS IN VIEWPORT ONCE');
     }, {
-      root: childRootHor
+      root: childRootHor,
+      ALLOW_CACHED_SCHEDULER: false
     }));
 
     childRoot.addEventListener('scroll', this.onIsDirty.bind(this), false);
@@ -115,7 +114,6 @@ export default Component.extend({
   onIsDirty() {
     let viewport = this.get('viewport');
     viewport.invalidate();
-    console.log('scroll');
   },
   willDestroyElement() {
     this._super(...arguments);
