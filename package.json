@@ -1,7 +1,7 @@
 {
   "name": "ember-spaniel",
   "version": "0.6.3",
-  "description": "Ember addon wrapping spaniel and providing viewport and requestAnimationFrame utilities",
+  "description": "Ember addon wrapping spaniel and providing viewport and requestAnimationFrame utilities.",
   "directories": {
     "doc": "doc",
     "test": "tests"
