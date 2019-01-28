@@ -1,25 +1,32 @@
 # ember-spaniel Changelog
 
-### 0.6.0 (October 9, 2018)
-* Modify Node Support Engine dropping Node 4 and Node 6
-* Unpin Spaniel for future patches
+### 0.6.x (January 28, 2019)
+
+- Modify Node Support Engine dropping Node 4 and Node 6
+- Unpin Spaniel for future patches
+- Flag: ALLOW_CACHED_SCHEDULER default `true`
+- Testing: Horizontal child elements
+- Dependency Maintenance
 
 ### 0.5.0 (August 27, 2018)
-* Update build tooling
-* Drop Travis testing support for Node 4 and Node 6
-* Upgrade dependencies
-* Migrate to yarn
-* Prebuild spaniel.js
-* Effectively pulls in the 1.0.0 improvements that are runtime backwards compatible.
+
+- Update build tooling
+- Drop Travis testing support for Node 4 and Node 6
+- Upgrade dependencies
+- Migrate to yarn
+- Prebuild spaniel.js
+- Effectively pulls in the 1.0.0 improvements that are runtime backwards compatible.
 
 ### 0.4.0 (June 13, 2018)
-* New API method `invalidate`
-* Spaniel Dependency Bump to 2.5.0
-* Includes the ability to watch a custom root within `onInViewportOnce`
-* Includes optional perf flag `ALLOW_CACHED_SCHEDULER`
+
+- New API method `invalidate`
+- Spaniel Dependency Bump to 2.5.0
+- Includes the ability to watch a custom root within `onInViewportOnce`
+- Includes optional perf flag `ALLOW_CACHED_SCHEDULER`
 
 ### 0.3.4 (February 14, 2018)
-* Spaniel Dependency Bump and unpinned to ^2.4.7
+
+- Spaniel Dependency Bump and unpinned to ^2.4.7
 
 ### 0.3.0 (August 4, 2017)
 
@@ -29,6 +36,6 @@ Downgrade [`spaniel`](https://github.com/linkedin/spaniel) to `2.3.0` to workaro
 
 Bump [`spaniel`](https://github.com/linkedin/spaniel) to `3.0.0`.
 
-* `defaultRootMargin` sign flip. Positive `defaultRootMargin` values now expand offset. This is a breaking change.
-* Use native `IntersectionObserver` when available
-* When polling `requestAnimationFrame`, only poll every 3 frames instead of every single frame. This improves performance, but will slightly slow down reaction time to changes.
+- `defaultRootMargin` sign flip. Positive `defaultRootMargin` values now expand offset. This is a breaking change.
+- Use native `IntersectionObserver` when available
+- When polling `requestAnimationFrame`, only poll every 3 frames instead of every single frame. This improves performance, but will slightly slow down reaction time to changes.
