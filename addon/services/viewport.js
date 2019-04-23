@@ -3,7 +3,7 @@ import {
   getOwner
 } from '@ember/application';
 import {
-  merge
+  assign
 } from '@ember/polyfills';
 import {
   Promise
@@ -21,7 +21,7 @@ export default Service.extend({
     let config = getOwner(this).resolveRegistration('config:environment');
     let defaultRootMargin = config && config.defaultRootMargin;
 
-    this.set('rootMargin', merge({
+    this.set('rootMargin', assign({
       top: 0,
       left: 0,
       right: 0,
