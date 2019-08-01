@@ -1,60 +1,47 @@
-import {
-  test
-} from 'qunit';
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import { visit } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
 
-moduleForAcceptance('Acceptance | Basic Functionality');
+module('Acceptance | Basic Functionality', function(hooks) {
+  setupApplicationTest(hooks);
 
-test('isInViewport calls callback with true when in viewport', function (assert) {
-  visit('/');
+  test('isInViewport calls callback with true when in viewport', async function(assert) {
+    await visit('/');
 
-  andThen(function () {
-    let results = find('.isInViewport');
-    assert.equal(results.length, 1, 'Item observed in viewport');
+    assert.dom('.isInViewport').exists('Item observed in viewport');
   });
-});
 
-test('onInViewportOnce called when item in viewport', function (assert) {
-  visit('/');
+  test('onInViewportOnce called when item in viewport', async function(assert) {
+    await visit('/');
 
-  andThen(function () {
-    let results = find('.onInViewportOnce');
-    assert.equal(results.length, 1, 'Item observed in viewport');
+    assert.dom('.onInViewportOnce').exists('Item observed in viewport');
   });
-});
 
-test('onInViewportOnce called when item in viewport using custom rootMargin', function (assert) {
-  visit('/');
+  test('onInViewportOnce called when item in viewport using custom rootMargin', async function(assert) {
+    await visit('/');
 
-  andThen(function () {
-    let results = find('.onInViewportOnceCustom');
-    assert.equal(results.length, 1, 'Item observed in viewport');
+    assert.dom('.onInViewportOnceCustom').exists('Item observed in viewport');
   });
-});
 
-test('onInViewportOnce not called when item not in viewport', function (assert) {
-  visit('/');
+  test('onInViewportOnce not called when item not in viewport', async function(assert) {
+    await visit('/');
 
-  andThen(function () {
-    let results = find('.unreachable-onInViewportOnce');
-    assert.equal(results.length, 0, 'Item not observed in viewport');
+    assert
+      .dom('.unreachable-onInViewportOnce')
+      .doesNotExist('Item not observed in viewport');
   });
-});
 
-test('onInViewportOnce called when horizontal child item in viewport', function (assert) {
-  visit('/');
+  test('onInViewportOnce called when horizontal child item in viewport', async function(assert) {
+    await visit('/');
 
-  andThen(function () {
-    let results = find('.childHorOnInViewportOnce');
-    assert.equal(results.length, 2, 'Item observed in viewport');
+    assert.dom('.childHorOnInViewportOnce').exists('Item observed in viewport');
   });
-});
 
-test('onInViewportOnce not called when horizontal child item not in viewport', function (assert) {
-  visit('/');
+  test('onInViewportOnce not called when horizontal child item not in viewport', async function(assert) {
+    await visit('/');
 
-  andThen(function () {
-    let results = find('.child-unreachable-onInViewportOnceHor');
-    assert.equal(results.length, 0, 'Item not observed in viewport');
+    assert
+      .dom('.child-unreachable-onInViewportOnceHor')
+      .doesNotExist('Item not observed in viewport');
   });
 });
