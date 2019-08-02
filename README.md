@@ -1,6 +1,23 @@
-# ember-spaniel [![Build Status](https://travis-ci.org/asakusuma/ember-spaniel.svg?branch=master)](https://travis-ci.org/asakusuma/ember-spaniel) [![npm version](https://badge.fury.io/js/ember-spaniel.svg)](https://www.npmjs.com/package/ember-spaniel)
+# ember-spaniel
+
+[![Build Status](https://travis-ci.com/ember-spaniel/ember-spaniel.svg?branch=master)](https://travis-ci.com/ember-spaniel/ember-spaniel)
+[![npm version](https://badge.fury.io/js/ember-spaniel.svg)](https://www.npmjs.com/package/ember-spaniel)
 
 Ember addon wrapping [spaniel](https://github.com/linkedin/spaniel), a viewport tracking library, [IntersectionObserver](https://github.com/WICG/IntersectionObserver) polyfill, and `requestAnimationFrame` task utility.
+
+## Compatibility
+
+- Ember.js v3.4 or above
+- Ember CLI v2.13 or above
+- Node.js v8 or above
+
+## Installation
+
+```bash
+ember install my-addon
+```
+
+## Usage
 
 Including this addon will add Spaniel to your application, available for direct use in the app.
 
@@ -25,7 +42,7 @@ module.exports = {
 }
 ```
 
-#### `onInViewportOnce(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER })` => `Function`
+### `onInViewportOnce(el, callback, { context, rootMargin, ratio, root, ALLOW_CACHED_SCHEDULER })` => `Function`
 
 Register a callback that will be called when the provided element first enters the viewport. Will get called on the next `requestAnimationFrame` if the element is already in the viewport. Returns a function that, when called, will cancel and clear the callback.
 
@@ -71,7 +88,7 @@ export default Ember.Component.extend({
 });
 ```
 
-#### `isInViewport(el, { ratio, rootMargin } = {})` => `Promise`
+### `isInViewport(el, { ratio, rootMargin } = {})` => `Promise`
 
 Returns a promise that resolves if the element is in the viewport, otherwise rejects.
 
@@ -90,7 +107,7 @@ export default Ember.Component.extend({
 });
 ```
 
-#### `getWatcher()`
+### `getWatcher()`
 
 The service has a `Watcher` instance available for direct use.
 
@@ -107,7 +124,7 @@ export default Ember.Component.extend({
 });
 ```
 
-#### `invalidate()`
+### `invalidate()`
 
 Triggers Spaniel#invalidate on the viewport to invalidate cached state. Due to negative performance implications, this method should not be abused and as such should handle edge case scenarios only, such as when leveraging a custom root. The recommended pattern below binds an event to viewports custom root, that when fired triggers the viewports `invalidate()` method. Optionally leveraging Ember's Util #debounce method for improved performance and/or https://github.com/ember-lifeline/ember-lifeline#addeventlistener.
 
@@ -139,35 +156,10 @@ export default Ember.Component.extend({
 });
 ```
 
-## Requirements
+## Contributing
 
-- Ember `2.x.x` is required. Ember 2.16-LTS and up is officially supported.
-- Node 8+
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-## Installation
+## License
 
-- `git clone https://github.com/asakusuma/ember-spaniel.git` this repository
-- `cd ember-spaniel`
-- `yarn install`
-
-### Linting
-
-- `yarn lint:js`
-- `yarn lint:js -- --fix`
-
-## Running
-
-- `ember serve`
-- Visit your app at [http://localhost:4200](http://localhost:4200).
-
-## Running Tests
-
-- `yarn test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-- `ember test` – Runs the test suite on the current Ember version
-- `ember test --server` – Runs the test suite in "watch mode"
-
-## Building
-
-- `ember build`
-
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+This project is licensed under the [MIT License](LICENSE.md).
