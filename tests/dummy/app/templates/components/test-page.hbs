@@ -1,23 +1,23 @@
 <div id="childHorizontalContainer">
-  {{#each items as |item count|}}
-  <div class="item" id="child-item-horizontal-{{item}}">
-    Child-Horizontal-Item {{item}}
-  </div>
+  {{#each items as |item|}}
+    <div class="item" id="child-item-horizontal-{{item}}">
+      Child-Horizontal-Item {{item}}
+    </div>
   {{/each}}
 </div>
 
 <section>
-  {{#each items as |item count|}}
-  <div class="item" id="item-{{item}}">
-    Item {{item}}
-  </div>
+  {{#each items as |item|}}
+    <div class="item" id="item-{{item}}">
+      Item {{item}}
+    </div>
   {{/each}}
 </section>
 
 <section id="childContainer">
-  {{#each items as |item count|}}
-  <div class="item" id="child-item-{{item}}">
-    Child-Item {{item}}
-  </div>
+  {{#each items as |item|}}
+    <div class="item" id="child-item-{{item}}">
+      Child-Item {{item}}
+    </div>
   {{/each}}
 </section>
