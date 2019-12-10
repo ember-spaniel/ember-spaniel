@@ -7837,10 +7837,10 @@ sourcemap-validator@^1.1.0:
     lodash.template "~2.3.x"
     source-map "~0.1.x"
 
-spaniel@^2.5.4:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/spaniel/-/spaniel-2.5.4.tgz#89cec47cd8ae0a1ae8bab842baf6b4e5cf8e59d9"
-  integrity sha512-EuLlIZ7cVeUwpjljvWPm/XsTsAC7G7NSm3lcbvt//OgYMZBdSzmKmMLoX2LEIGU0p/w0mDD9ycwBymlC14wmvg==
+spaniel@^2.5.7:
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/spaniel/-/spaniel-2.5.7.tgz#ad755c3bc99862b0ed3954da8dddd0de464904c8"
+  integrity sha512-dpyU9/NfOnmDwNAJ6YrboLb7Jo643yAuTZ/DwONul/N0/Hy28l0mOfGMmqgQHCMtSRUfc1kNuXhXbUWnpYJ+Dg==
 
 spawn-args@^0.2.0:
   version "0.2.0"
