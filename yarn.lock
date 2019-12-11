@@ -3629,10 +3629,10 @@ ember-rfc176-data@^0.3.9:
   resolved "https://registry.yarnpkg.com/ember-rfc176-data/-/ember-rfc176-data-0.3.9.tgz#44b6e051ead6c044ea87bd551f402e2cf89a7e3d"
   integrity sha512-EiTo5YQS0Duy0xp9gCP8ekzv9vxirNi7MnIB4zWs+thtWp/mEKgf5mkiiLU2+oo8C5DuavVHhoPQDmyxh8Io1Q==
 
-ember-rollup@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/ember-rollup/-/ember-rollup-2.1.1.tgz#bdc918dc52ebea43c449166f273a7a47000d7e1f"
-  integrity sha512-tQVbXMHST7eW8uY8kcrIjpfbDxx7Ud8nH1h/aJVhu0Tuvr61hp9RPFhwO2byAj7OysoIn89FHhITs8N4uzF97A==
+ember-rollup@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/ember-rollup/-/ember-rollup-2.1.2.tgz#63d262a4812cb940a35b97f9c9f28e1250103e6b"
+  integrity sha512-Vaww7C6KcFhMfvpm1p5zmEt15MqkwPLk26tyBmbh+6/8IlW24Rf7qZlG/nWMpBwKWoW07cwE1wQwnkoZjDI+yA==
   dependencies:
     "@babel/core" "^7.0.0-0"
     "@babel/preset-env" "^7.0.0"

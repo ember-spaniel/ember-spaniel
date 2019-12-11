@@ -1,6 +1,6 @@
 {
   "name": "ember-spaniel",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Ember addon wrapping spaniel and providing viewport and requestAnimationFrame utilities.",
   "keywords": [
     "ember-addon",
@@ -30,7 +30,7 @@
   "dependencies": {
     "calculate-cache-key-for-tree": "^1.1.0",
     "ember-cli-babel": "^7.7.3",
-    "ember-rollup": "^2.1.0",
+    "ember-rollup": "^2.1.2",
     "spaniel": "^2.5.7"
   },
   "devDependencies": {
