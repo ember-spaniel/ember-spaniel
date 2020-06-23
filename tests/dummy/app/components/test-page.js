@@ -39,6 +39,14 @@ export default Component.extend({
       first.classList.add('isInViewport');
     });
 
+    viewport.getWatcher().watch(first, (eventName) => {
+      first.classList.add(eventName);
+    });
+
+    this.cleanupTasks.push(() => {
+      viewport.getWatcher().unwatch(first);
+    });
+
     this.cleanupTasks.push(viewport.onInViewportOnce(second, () => {
       second.classList.add('onInViewportOnce');
     }, {

@@ -29,15 +29,21 @@ The rest of the API is contained in a service.
 
 ## `viewport` service API
 
-The `viewport` service will look for a `defaultRootMargin` object property on the application config. If not found, will default to 0, 0, 0, 0.
+You can set your `ember-spaniel` config in `config/environment.js`, there are 3 options `defaultRootMargin`, `watcherTime` and `watcherRatio`.
+
+The `viewport` service will look for a `defaultRootMargin` object property on the application config. If not found, will default to `0, 0, 0, 0`. The `watcherTime` and `watcherRatio` will be used as the config of watcher return by `getWatcher()`.
 
 ```JavaScript
 // environment.js
 module.exports = {
   ...
-  defaultRootMargin: {
-    top: 100,
-    bottom: 200
+  'ember-spaniel': {
+    watcherTime: 100,
+    watcherRatio: 0.8,
+    defaultRootMargin: {
+      top: 100,
+      bottom: 200
+    }
   }
 }
 ```

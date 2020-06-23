@@ -1,4 +1,4 @@
-import { visit } from '@ember/test-helpers';
+import { visit, waitFor } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 
@@ -43,5 +43,14 @@ module('Acceptance | Basic Functionality', function(hooks) {
     assert
       .dom('.child-unreachable-onInViewportOnceHor')
       .doesNotExist('Item not observed in viewport');
+  });
+
+  test('watcher will emit event with custom config', async function(assert) {
+    await visit('/');
+
+    assert.dom('.exposed').exists('Item exposed in viewport');
+
+    await waitFor('.impressed', { timeout: 200 })
+    assert.dom('.impressed').exists('Item impressed in viewport');
   });
 });

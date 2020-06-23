@@ -2,6 +2,7 @@ import Service from '@ember/service';
 import {
   getOwner
 } from '@ember/application';
+import { getProperties, setProperties } from '@ember/object';
 import {
   assign
 } from '@ember/polyfills';
@@ -18,23 +19,40 @@ export default Service.extend({
 
   init() {
     this._super(...arguments);
-    let config = getOwner(this).resolveRegistration('config:environment');
-    let defaultRootMargin = config && config.defaultRootMargin;
+    let config = getOwner(this).resolveRegistration('config:environment') || {};
+    let {
+      watcherTime,
+      watcherRatio,
+      defaultRootMargin,
+    } = config['ember-spaniel'] || {};
+    // Keep it only for backward compatiblity
+    defaultRootMargin = defaultRootMargin ? defaultRootMargin : config.defaultRootMargin;
 
-    this.set('rootMargin', assign({
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-    }, defaultRootMargin));
-
+    setProperties(this, {
+      watcherTime,
+      watcherRatio,
+      rootMargin: assign({
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+      }, defaultRootMargin),
+    });
   },
 
   getWatcher(root = window, ALLOW_CACHED_SCHEDULER = true) {
+    let {
+      watcherTime: time,
+      watcherRatio: ratio,
+      rootMargin,
+    } = getProperties(this, 'watcherTime', 'watcherRatio', 'rootMargin');
+
     return this._globalWatcher || (this._globalWatcher = new spaniel.Watcher({
-      rootMargin: this.get('rootMargin'),
-      ALLOW_CACHED_SCHEDULER: ALLOW_CACHED_SCHEDULER,
-      root: root
+      time,
+      ratio,
+      rootMargin,
+      root,
+      ALLOW_CACHED_SCHEDULER,
     }));
   },
 
@@ -42,7 +60,7 @@ export default Service.extend({
     ratio,
     rootMargin
   } = {}) {
-    rootMargin = rootMargin || this.get('rootMargin');
+    rootMargin = rootMargin || this.rootMargin;
     return new Promise((resolve, reject) => {
       spaniel.elementSatisfiesRatio(el, ratio, (flag) => {
         if (flag) {
