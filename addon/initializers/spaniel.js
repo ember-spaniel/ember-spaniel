@@ -1,4 +1,4 @@
-import spaniel from 'spaniel';
+import * as spaniel from 'spaniel';
 import emberSpanielEngine from './../spaniel-engines/ember-spaniel-engine';
 
 export function initialize() {
