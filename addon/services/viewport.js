@@ -9,7 +9,7 @@ import {
 import {
   Promise
 } from 'rsvp';
-import spaniel from 'spaniel';
+import * as spaniel from 'spaniel';
 
 export default Service.extend({
   spaniel,
