@@ -22,7 +22,7 @@ ember install my-addon
 Including this addon will add Spaniel to your application, available for direct use in the app.
 
 ```JavaScript
-import spaniel from 'spaniel';
+import * as spaniel from 'spaniel';
 ```
 
 The rest of the API is contained in a service.
