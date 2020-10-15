@@ -40,7 +40,7 @@ export default Service.extend({
     });
   },
 
-  getWatcher(root = window, ALLOW_CACHED_SCHEDULER = true) {
+  getWatcher(root = document, ALLOW_CACHED_SCHEDULER = true) {
     let {
       watcherTime: time,
       watcherRatio: ratio,
@@ -80,7 +80,7 @@ export default Service.extend({
     context,
     rootMargin,
     ratio,
-    root = window,
+    root = document,
     ALLOW_CACHED_SCHEDULER = true
   } = {}) {
     const canUseGlobalWatcher = !(rootMargin || ratio || (root !== window));
