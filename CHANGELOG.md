@@ -1,5 +1,9 @@
 # ember-spaniel Changelog
 
+### 0.7.x (January 28, 2019)
+
+- Drop support for EOLed versions of node
+
 ### 0.6.x (January 28, 2019)
 
 - Modify Node Support Engine dropping Node 4 and Node 6
