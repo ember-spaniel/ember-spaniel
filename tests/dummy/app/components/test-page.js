@@ -21,7 +21,7 @@ export default Component.extend({
   },
 
   didInsertElement() {
-    let viewport = this.get('viewport');
+    let viewport = this.viewport;
     let first = document.getElementById("item-1");
     let second = document.getElementById('item-5');
     let third = document.getElementById('item-5');
@@ -120,7 +120,7 @@ export default Component.extend({
     childRoot.addEventListener('scroll', this.onIsDirty.bind(this), false);
   },
   onIsDirty() {
-    let viewport = this.get('viewport');
+    let viewport = this.viewport;
     viewport.invalidate();
   },
   willDestroyElement() {

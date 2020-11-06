@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import {
   getOwner
 } from '@ember/application';
-import { getProperties, setProperties } from '@ember/object';
+import { setProperties } from '@ember/object';
 import {
   assign
 } from '@ember/polyfills';
@@ -45,7 +45,7 @@ export default Service.extend({
       watcherTime: time,
       watcherRatio: ratio,
       rootMargin,
-    } = getProperties(this, 'watcherTime', 'watcherRatio', 'rootMargin');
+    } = this;
 
     return this._globalWatcher || (this._globalWatcher = new spaniel.Watcher({
       time,
